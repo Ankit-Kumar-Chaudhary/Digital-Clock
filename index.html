@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Digital Calculator</title>
+    <!-- <link rel="stylesheet" href = "style.css"> -->
+    <!-- Css Started -->
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: rgb(31, 29, 29);
+        color: white;
+        text-align: center;
+        margin: 0 auto;
+      }
+
+      #container {
+        max-width: 100%;
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .clock {
+        margin-top: 2rem;
+        font-size: 3rem;
+        font-weight: bold;
+        border: 0.1rem #5b58ff solid;
+        padding: 20px;
+        max-width: 40rem;
+        border-radius: 10px;
+      }
+      span {
+        color: rgb(51, 204, 20);
+      }
+
+      .showDate {
+        margin-top: 3rem;
+      }
+
+      /* From Uiverse.io by omriluz */ 
+.button {
+  position: relative;
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  background-image: linear-gradient(-60deg, #5b58ff 0%, #f09819 100%);
+  transition: all 0.2s ease;
+}
+
+.button:active {
+  transform: scale(0.96);
+}
+
+.button:before,
+.button:after {
+  position: absolute;
+  content: "";
+  width: 150%;
+  left: 50%;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: -1000;
+  background-repeat: no-repeat;
+}
+
+.button:hover:before {
+  top: -70%;
+  background-image: radial-gradient(circle, #a89215 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, #13a5be 20%, transparent 30%),
+    radial-gradient(circle, #a3b82d 20%, transparent 20%),
+    radial-gradient(circle, #590cbe 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #bd1717 15%, transparent 20%),
+    radial-gradient(circle, #2a7ce8 20%, transparent 20%),
+    radial-gradient(circle, #30e82a 20%, transparent 20%),
+    radial-gradient(circle, #e92c75 20%, transparent 20%),
+    radial-gradient(circle, #914fe7 20%, transparent 20%);
+  background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
+    10% 10%, 18% 18%;
+  background-position: 50% 120%;
+  animation: greentopBubbles 0.6s ease;
+}
+
+@keyframes greentopBubbles {
+  0% {
+    background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
+      40% 90%, 55% 90%, 70% 90%;
+  }
+
+  50% {
+    background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+      50% 50%, 65% 20%, 90% 30%;
+  }
+
+  100% {
+    background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+      50% 40%, 65% 10%, 90% 20%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
+.button:hover::after {
+  bottom: -70%;
+  background-image: radial-gradient(circle, #ff93db 20%, transparent 20%),
+    radial-gradient(circle, #2ae8df 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #71ffbd 15%, transparent 20%),
+    radial-gradient(circle, #2a9ce8 20%, transparent 20%),
+    radial-gradient(circle, #7814fc 20%, transparent 20%),
+    radial-gradient(circle, #73e4f8 20%, transparent 20%),
+    radial-gradient(circle, #da7a0d 20%, transparent 20%);
+  background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+  background-position: 50% 0%;
+  animation: greenbottomBubbles 0.6s ease;
+}
+
+@keyframes greenbottomBubbles {
+  0% {
+    background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
+      70% -10%, 70% 0%;
+  }
+
+  50% {
+    background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+      105% 0%;
+  }
+
+  100% {
+    background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+      110% 10%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
+      p {
+        margin-top: 0.5rem;
+      }
+    </style>
+
+    <!-- Css Started End-->
+  </head>
+
+  <body>
+    <div id="container">
+      <h1><span>D</span>igital <span>Clo</span>ck</h1>
+      <p>Showing Time</span>
+      <div class="clock">00 : 00 : 00</div>
+      
+
+      <!-- Showing Date -->
+
+      <a href="showdate.html"><button class="showDate button">Show Date</button></a>
+    </div>
+  </body>
+
+  <!-- Java Script Started -->
+  <script>
+    let clock = document.querySelector(".clock");
+    let showBtn = document.querySelector(".showDate");
+
+    // Clock Function
+
+    function updateClock() {
+      let currentTime = new Date();
+
+      let hours = currentTime.getHours();
+      let minutes = currentTime.getMinutes();
+      let seconds = currentTime.getSeconds();
+
+      // Am/Pm Check
+
+      let session = "Am";
+
+      if (hours >= 12) {
+        session = "Pm";
+      }
+
+      // 24 Hour Formate to 12 Hour Formate Conversion
+
+      if (hours === 0) {
+        hours = 12;
+      } else if (hours > 12) {
+        hours = hours - 12;
+      }
+
+      // Zero add karo agar value < 10 ho
+
+      if (hours < 10) hours = "0" + hours;
+      if (minutes < 10) minutes = "0" + minutes;
+      if (seconds < 10) seconds = "0" + seconds;
+
+      let formattedTime =
+        hours + " : " + minutes + " : " + seconds + " " + session;
+
+      clock.innerText = formattedTime;
+    }
+
+    // Pehli baar call
+
+    updateClock();
+
+    // Har second clock update karo
+    setInterval(updateClock, 1000);
+  </script>
+
+  <!-- Java Script End -->
+</html>
